@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenho uma pergunta muito importante... 💍❤️</title>
+    <!-- Biblioteca externa para os confetes -->
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+            transition: all 0.5s ease;
+        }
+
+        h1 {
+            color: #d81b60;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            min-height: 60px;
+            position: relative;
+        }
+
+        button {
+            padding: 12px 35px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .btn-sim {
+            background-color: #e53935; /* Vermelho romântico para o Sim */
+            color: white;
+            box-shadow: 0 5px 15px rgba(229, 57, 53, 0.3);
+        }
+
+        .btn-nao {
+            background-color: #757575; /* Cinza para o Não sumir discretamente */
+            color: white;
+            box-shadow: 0 5px 15px rgba(117, 117, 117, 0.3);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Detalhes do sucesso escondidos */
+        .hidden {
+            display: none !important;
+        }
+
+        .sucesso h2 {
+            color: #d81b60;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .mensagem-final {
+            font-size: 1.1rem;
+            color: #333;
+            line-height: 1.6;
+            background: #fff0f5;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px dashed #d81b60;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="painelPrincipal">
+        <!-- Pergunta principal alterada -->
+        <h1 id="pergunta">Quer casar comigo e passar o resto da sua vida ao meu lado? 💍✨</h1>
+        
+        <div class="btn-container" id="areaBotoes">
+            <button class="btn-sim" id="btnSim">SIM!</button>
+            <button class="btn-nao" id="btnNao">Não</button>
+        </div>
+    </div>
+
+    <!-- Painel de Sucesso com a mensagem do casamento -->
+    <div class="container hidden" id="painelSucesso">
+        <div class="sucesso">
+            <h2>Ebaaa! O melhor SIM da minha vida! 😍🎉💍</h2>
+            <div class="mensagem-final">
+                Eu tenho a certeza absoluta de que você é a pessoa certa para mim. Mal posso esperar para começarmos esse novo capítulo e construirmos nossa família juntos. Eu te amo daqui até a eternidade! ❤️
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const btnNao = document.getElementById('btnNao');
+        const btnSim = document.getElementById('btnSim');
+        const painelPrincipal = document.getElementById('painelPrincipal');
+        const painelSucesso = document.getElementById('painelSucesso');
+
+        // Função para mover o botão Não de lugar de forma aleatória
+        function desviarBotao() {
+            const larguraJanela = window.innerWidth - btnNao.offsetWidth - 20;
+            const alturaJanela = window.innerHeight - btnNao.offsetHeight - 20;
+
+            const randomX = Math.max(10, Math.floor(Math.random() * larguraJanela));
+            const randomY = Math.max(10, Math.floor(Math.random() * alturaJanela));
+
+            btnNao.style.position = 'fixed';
+            btnNao.style.left = randomX + 'px';
+            btnNao.style.top = randomY + 'px';
+        }
+
+        // Evento para computador
+        btnNao.addEventListener('mouseover', desviarBotao);
+        
+        // Evento para celular
+        btnNao.addEventListener('touchstart', (e) => {
+            e.preventDefault(); 
+            desviarBotao();
+        });
+
+        // Quando ela clica no SIM
+        btnSim.addEventListener('click', () => {
+            painelPrincipal.classList.add('hidden');
+            painelSucesso.classList.remove('hidden');
+
+            // Chuva de confetes infinita/longa para celebrar o casamento
+            var duration = 6 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 4,
+                    angle: 60,
+                    spread: 60,
+                    origin: { x: 0 }
+                });
+                confetti({
+                    particleCount: 4,
+                    angle: 120,
+                    spread: 60,
+                    origin: { x: 1 }
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        });
+    </script>
+</body>
+</html>
